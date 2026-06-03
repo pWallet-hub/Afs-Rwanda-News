@@ -38,7 +38,7 @@ const CATEGORIES = [
   ["Market Access", 12], ["Climate Resilience", 11], ["Policy & Finance", 9],
 ];
 
-const PH_COLORS = {
+const PH_COLORS: Record<string, [string, string]> = {
   "ph-1": ["#2d6a1f", "#4d9e35"],
   "ph-2": ["#1a4d6b", "#2980b9"],
   "ph-3": ["#7d4e1a", "#c47c2d"],
@@ -49,7 +49,7 @@ const PH_COLORS = {
   "ph-8": ["#1a3a5c", "#2471a3"],
 };
 
-function Placeholder({ ph, style = {} }) {
+function Placeholder({ ph, style = {} }: { ph: string; style?: React.CSSProperties }) {
   const [a, b] = PH_COLORS[ph] || ["#333", "#555"];
   return (
     <div
@@ -81,7 +81,17 @@ function Logo() {
   );
 }
 
-function FeatCard({ card }) {
+type FeaturedCard = {
+  ph: string;
+  tag: string;
+  tagColor: string;
+  title: string;
+  author: string;
+  date: string;
+  span?: boolean;
+};
+
+function FeatCard({ card }: { card: FeaturedCard }) {
   return (
     <div style={{ position: "relative", overflow: "hidden", cursor: "pointer", ...(card.span ? { gridColumn: "span 2", gridRow: "span 2" } : {}) }}>
       <Placeholder ph={card.ph} style={{ height: "100%", minHeight: card.span ? "100%" : 130 }} />
@@ -94,7 +104,16 @@ function FeatCard({ card }) {
   );
 }
 
-function ArtCard({ art }) {
+type Article = {
+  ph: string;
+  tag: string;
+  title: string;
+  author: string;
+  date: string;
+  wide: boolean;
+};
+
+function ArtCard({ art }: { art: Article }) {
   const [hovered, setHovered] = useState(false);
   if (art.wide) {
     return (
@@ -126,13 +145,13 @@ function ArtCard({ art }) {
   );
 }
 
-function TagPill({ tag }) {
+function TagPill({ tag }: { tag: string }) {
   return (
     <div style={{ display: "inline-block", background: "#f5f3ee", color: "#70C113", fontSize: 9, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "2px 7px", borderRadius: 2, marginBottom: 5, border: "1px solid #70C113" }}>{tag}</div>
   );
 }
 
-function Meta({ author, date }) {
+function Meta({ author, date }: { author: string; date: string }) {
   return (
     <div style={{ fontSize: 11, color: "#666", display: "flex", alignItems: "center", gap: 6 }}>
       <span>{author}</span>
