@@ -1,13 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @theme {
-  /* This maps the Poppins CSS variable so you can use utility classes like font-sans */
   --font-sans: var(--font-poppins), sans-serif;
-}
-
-body {
-  background-color: #fcfbf7; /* Classic newspaper off-white */
-  color: #111111;
 }

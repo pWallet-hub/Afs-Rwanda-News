@@ -1,30 +1,18 @@
-import React from 'react';
-import ArticleCard from './ArticleCard';
+import React from "react";
+import { Article } from "@/context/AppContext";
+import ArticleCard from "./ArticleCard";
 
-interface Article {
-  id: string;
-  category: string;
-  title: string;
-  excerpt: string;
-  time: string;
-}
-
-interface NewsGridProps {
-  title: string;
-  articles: Article[];
-}
-
-export default function NewsGrid({ title, articles }: NewsGridProps) {
+export default function NewsGrid({ articles }: { articles: Article[] }) {
+  if (articles.length === 0) {
+    return (
+      <div className="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl">
+        <p className="text-gray-400 text-sm">No live articles published in this category yet.</p>
+      </div>
+    );
+  }
   return (
-    <div className="space-y-4">
-      <div className="border-b-2 border-[#032B53] pb-2">
-        <h2 className="text-sm uppercase tracking-widest font-black text-[#032B53]">{title}</h2>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles.map((article) => (
-          <ArticleCard key={article.id} {...article} />
-        ))}
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {articles.map((art) => <ArticleCard key={art.id} article={art} />)}
     </div>
   );
 }
